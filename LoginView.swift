@@ -78,7 +78,7 @@ extension LoginView: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         usernameTextField.endEditing(true)
-        usernameTextField.endEditing(true)
+        passwordTextField.endEditing(true)
         return true
     }
     

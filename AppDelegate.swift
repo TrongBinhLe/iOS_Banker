@@ -49,13 +49,17 @@ extension AppDelegate {
 
 extension AppDelegate: LoginViewControllerDelegate {
     func didLogin() {
-        setRootViewController(onboardContainerViewController)
-        print("banker -- Login sucess")
+        if LocalState.hasOnboarded {
+            setRootViewController(dummyViewController)
+        } else {
+            setRootViewController(onboardContainerViewController)
+        }
     }
 }
 
 extension AppDelegate: OnboardingContainerViewControllerDelegate {
     func didFinishOnboarding() {
+        LocalState.hasOnboarded = true
         setRootViewController(dummyViewController)
     }
 }
