@@ -21,6 +21,13 @@ class AccountSummaryViewController: UIViewController {
 //        style()
 //        layout()
         setup()
+    let stackView = UIStackView()
+    let label = UILabel()
+    
+    override func viewDidLoad() {
+        view.backgroundColor = .systemGreen
+        style()
+        layout()
     }
 }
 
