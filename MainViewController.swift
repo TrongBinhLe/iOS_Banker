@@ -19,9 +19,9 @@ class MainViewController: UITabBarController {
         let moneyVC = MoveMoneyViewController()
         let moreVC = MoreViewController()
         
-        summaryVC.setTaBarImage(imageName: "list.dash.header.rectangle", title: "Summary")
-        moneyVC.setTaBarImage(imageName: "arrow.left.arrow.right", title: "Move Money")
-        moreVC.setTaBarImage(imageName: "ellipsis.circle", title: "More")
+        summaryVC.setTabBarImage(imageName: "list.dash.header.rectangle", title: "Summary")
+        moneyVC.setTabBarImage(imageName: "arrow.left.arrow.right", title: "Move Money")
+        moreVC.setTabBarImage(imageName: "ellipsis.circle", title: "More")
         
         let summaryNC = UINavigationController(rootViewController: summaryVC)
         let moneyNC = UINavigationController(rootViewController: moneyVC)
@@ -49,12 +49,6 @@ class MainViewController: UITabBarController {
     }
     
     
-}
-
-class AccountSummaryViewController: UIViewController {
-    override func viewDidLoad() {
-        view.backgroundColor = .systemGreen
-    }
 }
 
 class MoveMoneyViewController: UIViewController {
