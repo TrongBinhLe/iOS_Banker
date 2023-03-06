@@ -9,18 +9,39 @@ import UIKit
 
 class AccountSummaryViewController: UIViewController {
     
+    let  games = ["Pacman", "Space Invaders", "Space Patrol"]
+
     let stackView = UIStackView()
     let label = UILabel()
+    let tableView = UITableView()
+    
     
     override func viewDidLoad() {
         view.backgroundColor = .systemGreen
-        style()
-        layout()
+//        style()
+//        layout()
+        setup()
     }
 }
 
 extension AccountSummaryViewController {
-    
+    private func setup() {
+        setupTableView()
+    }
+    private func setupTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(tableView)
+        
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+    }
     private func style() {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
@@ -41,4 +62,20 @@ extension AccountSummaryViewController {
             
         ])
     }
+}
+
+extension AccountSummaryViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return  games.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell()
+        cell.textLabel?.text = games[indexPath.row]
+        return cell
+    }
+}
+
+extension AccountSummaryViewController: UITableViewDelegate {
+    
 }
