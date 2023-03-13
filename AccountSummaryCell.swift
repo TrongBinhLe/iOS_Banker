@@ -16,6 +16,10 @@ class AccountSummaryCell: UITableViewCell {
     struct ViewModel {
         let accountType: AccountType
         let accountName: String
+        let balance: Decimal
+        var balanceAsAttributedString: NSAttributedString {
+               return CurrencyFormatter().makeAttributedCurrency(balance)
+           }
     }
     
     let typeLable = UILabel()
@@ -71,7 +75,6 @@ extension AccountSummaryCell {
         
         balanceAmountLabel.translatesAutoresizingMaskIntoConstraints = false
         balanceAmountLabel.textAlignment = .center
-        balanceAmountLabel.attributedText = makeFormattedBalance(dollar: "929,466", cent: "63")
         
         chevronImageView.translatesAutoresizingMaskIntoConstraints = false
         let chevronImage = UIImage(systemName: "chevron.right")!.withTintColor(appColor, renderingMode: .alwaysOriginal)
@@ -110,28 +113,13 @@ extension AccountSummaryCell {
         ])
     }
     
-    private func makeFormattedBalance(dollar: String, cent: String) -> NSMutableAttributedString {
-        
-        let dollarSignAtrributes: [NSAttributedString.Key: Any] = [.font: UIFont.preferredFont(forTextStyle: .callout), .baselineOffset: 8]
-        let dollarAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.preferredFont(forTextStyle: .title1)]
-        let centAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.preferredFont(forTextStyle: .footnote), .baselineOffset: 8]
-        
-        let rootString = NSMutableAttributedString(string: "$", attributes: dollarSignAtrributes)
-        let dollarString = NSMutableAttributedString(string: dollar, attributes: dollarAttributes)
-        let centString = NSMutableAttributedString(string: cent, attributes: centAttributes)
-        
-        rootString.append(dollarString)
-        rootString.append(centString)
-        
-        return rootString
-        
-    }
 }
 
 extension AccountSummaryCell {
     func configure(with vm: ViewModel) {
         typeLable.text = vm.accountType.rawValue
         nameLabel.text = vm.accountName
+        balanceAmountLabel.attributedText = vm.balanceAsAttributedString
         switch vm.accountType {
         case .Banking:
             underLine.backgroundColor = appColor
