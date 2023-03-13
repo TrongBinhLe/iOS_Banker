@@ -7,6 +7,17 @@
 import UIKit
 
 class AccountSummaryCell: UITableViewCell {
+    enum AccountType: String {
+        case Banking
+        case CreditCard
+        case Investment
+    }
+    
+    struct ViewModel {
+        let accountType: AccountType
+        let accountName: String
+    }
+    
     let typeLable = UILabel()
     let underLine = UIView()
     let nameLabel = UILabel()
@@ -14,6 +25,8 @@ class AccountSummaryCell: UITableViewCell {
     let balanceLabel = UILabel()
     let balanceAmountLabel = UILabel()
     let chevronImageView = UIImageView()
+    
+    let viewModel: ViewModel? = nil
     
     static let reuseID = "AccountSummaryCell"
     static let rowHeight: CGFloat = 100
@@ -54,12 +67,11 @@ extension AccountSummaryCell {
         balanceLabel.font = UIFont.preferredFont(forTextStyle: .body)
         balanceLabel.adjustsFontForContentSizeCategory = true
         balanceLabel.text = "Current balance"
-        balanceLabel.textAlignment = .right
+        balanceLabel.textAlignment = .center
         
         balanceAmountLabel.translatesAutoresizingMaskIntoConstraints = false
         balanceAmountLabel.textAlignment = .center
-//        balanceAmountLabel.text = "$929,466.63"
-        balanceLabel.attributedText = makeFormattedBalance(dollar: "929,466", cent: "63")
+        balanceAmountLabel.attributedText = makeFormattedBalance(dollar: "929,466", cent: "63")
         
         chevronImageView.translatesAutoresizingMaskIntoConstraints = false
         let chevronImage = UIImage(systemName: "chevron.right")!.withTintColor(appColor, renderingMode: .alwaysOriginal)
@@ -113,5 +125,25 @@ extension AccountSummaryCell {
         
         return rootString
         
+    }
+}
+
+extension AccountSummaryCell {
+    func configure(with vm: ViewModel) {
+        typeLable.text = vm.accountType.rawValue
+        nameLabel.text = vm.accountName
+        switch vm.accountType {
+        case .Banking:
+            underLine.backgroundColor = appColor
+            break
+        case .CreditCard:
+            underLine.backgroundColor = .red
+            break
+        case .Investment:
+            balanceLabel.text = "Value"
+            underLine.backgroundColor = .brown
+            break
+            
+        }
     }
 }
