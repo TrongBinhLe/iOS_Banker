@@ -15,6 +15,11 @@ class AccountSummaryViewController: UIViewController {
     let label = UILabel()
     let tableView = UITableView()
     
+    lazy var logoutButtonItem: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logoutButtonTapped))
+        barButtonItem.tintColor = .label
+        return barButtonItem
+    }()
     
     override func viewDidLoad() {
         view.backgroundColor = .systemGreen
@@ -24,10 +29,16 @@ class AccountSummaryViewController: UIViewController {
 
 extension AccountSummaryViewController {
     private func setup() {
+        setupNavigationBar()
         setupTableView()
         setupTableHeaderView()
         fetchData()
     }
+    
+    private func setupNavigationBar() {
+        navigationItem.rightBarButtonItem = logoutButtonItem
+    }
+    
     private func setupTableView() {
         tableView.backgroundColor = appColor
         tableView.delegate = self
@@ -128,5 +139,12 @@ extension AccountSummaryViewController {
         accounts.append(masterCard)
         accounts.append(investment1)
         accounts.append(investment2)
+    }
+}
+
+extension AccountSummaryViewController  {
+    
+    @objc func logoutButtonTapped() {
+        print("logoutButtonTapped")
     }
 }
