@@ -31,11 +31,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window?.rootViewController = mainViewController
 //        window?.rootViewController = OnboardingContainerViewController()
+//        window?.rootViewController = LoginViewController()
         mainViewController.selectedIndex = 0
         
+        displayLogin()
         return true
     }
+    
+    private func displayLogin() {
+            setRootViewController(loginViewController)
+        }
 
+        private func displayNextScreen() {
+            if LocalState.hasOnboarded {
+                prepMainView()
+                setRootViewController(mainViewController)
+            } else {
+                setRootViewController(onboardContainerViewController)
+            }
+        }
+        
+        private func prepMainView() {
+            mainViewController.setStatusBar()
+            UINavigationBar.appearance().isTranslucent = false
+            UINavigationBar.appearance().backgroundColor = appColor
+        }
+    
 }
 
 extension AppDelegate {
@@ -53,17 +74,14 @@ extension AppDelegate {
 
 extension AppDelegate: LoginViewControllerDelegate {
     func didLogin() {
-        if LocalState.hasOnboarded {
-            setRootViewController(mainViewController)
-        } else {
-            setRootViewController(onboardContainerViewController)
-        }
+        displayNextScreen()
     }
 }
 
 extension AppDelegate: OnboardingContainerViewControllerDelegate {
     func didFinishOnboarding() {
         LocalState.hasOnboarded = true
+        prepMainView()
         setRootViewController(mainViewController)
     }
 }
