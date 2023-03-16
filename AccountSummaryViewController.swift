@@ -146,5 +146,6 @@ extension AccountSummaryViewController  {
     
     @objc func logoutButtonTapped() {
         print("logoutButtonTapped")
+        NotificationCenter.default.post(name: .logout, object: nil)
     }
 }
