@@ -51,7 +51,7 @@ extension AccountSummaryCell {
     
     private func setup() {
         typeLable.translatesAutoresizingMaskIntoConstraints = false
-        typeLable.adjustsFontForContentSizeCategory = true
+        typeLable.adjustsFontSizeToFitWidth = true
         typeLable.font = UIFont.preferredFont(forTextStyle: .caption1)
         typeLable.text = "Acount type"
         
@@ -59,7 +59,7 @@ extension AccountSummaryCell {
         underLine.backgroundColor = appColor
         
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameLabel.adjustsFontForContentSizeCategory = true
+        nameLabel.adjustsFontSizeToFitWidth = true
         nameLabel.font = UIFont.preferredFont(forTextStyle: .body)
         nameLabel.text = "No-Free All-In Chequing"
         
@@ -69,7 +69,7 @@ extension AccountSummaryCell {
         
         balanceLabel.translatesAutoresizingMaskIntoConstraints = false
         balanceLabel.font = UIFont.preferredFont(forTextStyle: .body)
-        balanceLabel.adjustsFontForContentSizeCategory = true
+        balanceLabel.adjustsFontSizeToFitWidth = true
         balanceLabel.text = "Current balance"
         balanceLabel.textAlignment = .center
         
